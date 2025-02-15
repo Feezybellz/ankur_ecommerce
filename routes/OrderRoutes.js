@@ -11,12 +11,9 @@ const AdminAuthMiddleware = require("../middleware/AdminAuthMiddleware");
 
 const router = express.Router();
 
-router.get("/orders", AuthMiddleware, AdminAuthMiddleware, getAllOrders);
-router.get(
-  "/order/update/:orderId",
-  AuthMiddleware,
-  AdminAuthMiddleware,
-  updateOrderStatus
-);
+router.getUserOrders = getUserOrders;
+router.post("/place", AuthMiddleware, placeOrder); // Users place an order
+router.put("/update", AdminAuthMiddleware, updateOrderStatus); // Admin update order status
+router.put("/cancel", AuthMiddleware, cancelOrder); // Users/admin cancel order
 
 module.exports = router;

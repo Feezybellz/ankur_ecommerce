@@ -2,10 +2,7 @@ const AuthMiddleware = require("./AuthMiddleware");
 
 const AdminAuthMiddleware = async (req, res, next) => {
   try {
-    await AuthMiddleware(req, res, next);
-
     const user = req.user;
-    console.log(user);
 
     if (!["admin", "super_admin"].includes(user.role)) {
       return res.status(403).json({

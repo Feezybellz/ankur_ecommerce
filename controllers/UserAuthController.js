@@ -26,27 +26,6 @@ const sendVerificationEmail = async (name, email, verificationLink) => {
   }
 };
 
-const resendVerificationEmail = async (name, email) => {
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error("User not found");
-  }
-  if (user.verified) {
-    throw new Error("User already verified");
-  }
-  const verification_token = user.verification_token;
-  const verificationLink = `${process.env.APP_PROTOCOL}://${process.env.APP_DOMAIN}/verify/${verification_token}`;
-
-  const subject = "Verify Your Account";
-  const text = `Hello ${name},\n\nYou requested for verification link.\n\nPlease verify your account by clicking the link below:\n\n${verificationLink}\n\nIf you did not request this, please ignore this email.`;
-  const html = ``;
-  const emailSent = await sendEmail(email, subject, text, html);
-
-  if (!emailSent) {
-    throw new Error("Failed to send verification email");
-  }
-};
-
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -87,14 +66,22 @@ exports.register = async (req, res) => {
       verification_token,
     });
     await user.save();
-    await sendVerificationEmail(name, email, verificationLink);
+    //Uncomment this if you have a working SMTP credentials
+    // await sendVerificationEmail(name, email, verificationLink);
     res.json({
       status: "success",
       message: "User registered successfully",
       /*user,*/
     });
   } catch (error) {
-    res.status(500).json({ status: "error", message: error.message });
+    const response = {
+      status: "error",
+      message: "An error occured",
+    };
+    if (process.env.APP_ENV === "development") {
+      response.error_message = error.message;
+    }
+    res.status(500).json(response);
   }
 };
 
@@ -129,7 +116,14 @@ exports.login = async (req, res) => {
       /*user */
     });
   } catch (error) {
-    res.status(500).json({ status: "error", message: error.message });
+    const response = {
+      status: "error",
+      message: "An error occured",
+    };
+    if (process.env.APP_ENV === "development") {
+      response.error_message = error.message;
+    }
+    res.status(500).json(response);
   }
 };
 
@@ -157,7 +151,6 @@ exports.logout = async (req, res) => {
       status: "error",
       message: "An error occured",
     };
-
     if (process.env.APP_ENV === "development") {
       response.error_message = error.message;
     }

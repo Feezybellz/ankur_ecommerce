@@ -32,6 +32,16 @@ class inputValidator {
     return this;
   }
 
+  isFloat(fieldValue, field) {
+    if (!/^\d+(\.\d+)?$/.test(fieldValue)) {
+      this.addError(
+        field,
+        `${this.messages[field] || `${field} must be a float`}`
+      );
+    }
+    return this;
+  }
+
   // Check if field is a valid email
   isEmail(fieldValue, field) {
     const emailPattern = /\S+@\S+\.\S+/;
