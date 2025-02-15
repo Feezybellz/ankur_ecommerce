@@ -45,7 +45,7 @@ This starts the server on `http://localhost:5000`.
 
 Below are sample requests to test the API.
 
-### **🔹 Register a User**
+### **Register a User**
 
 ```http
 POST /api/auth/register
@@ -61,7 +61,7 @@ POST /api/auth/register
 }
 ```
 
-### **🔹 User & Admin Login**
+### **User & Admin Login**
 
 ```http
 POST /api/auth/login
@@ -85,7 +85,7 @@ POST /api/auth/login
 }
 ```
 
-### **🔹 Create Product Category (Admin Only)**
+### **Create Product Category (Admin Only)**
 
 ```http
 POST /api/product/category/add
@@ -110,7 +110,7 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 }
 ```
 
-### **🔹 Add a Product (Admin Only)**
+### **Add a Product (Admin Only)**
 
 ```http
 POST /api/product/add
@@ -137,7 +137,7 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 }
 ```
 
-### **🔹 Get All Products**
+### **Get All Products**
 
 ```http
 GET /api/products
@@ -173,7 +173,7 @@ GET /api/products
 }
 ```
 
-### **🔹 Add Product to Cart**
+### **Add Product to Cart**
 
 ```http
 POST /api/cart/add
@@ -217,7 +217,7 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 }
 ```
 
-### **🔹 Get Cart Items**
+### **Get Cart Items**
 
 ```http
 GET /api/cart
@@ -246,14 +246,14 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 }
 ```
 
-### **🔹 Place an Order**
+### **Place an Order**
 
 ```http
 POST /api/order/place
 Authorization: Bearer <YOUR_JWT_TOKEN>
 ```
 
-### **🔹 Generate Payment Link (Flutterwave)**
+### **Generate Payment Link (Flutterwave)**
 
 ```http
 POST /api/payment/pay/{orderId}
@@ -270,7 +270,7 @@ Authorization: Bearer <YOUR_JWT_TOKEN>
 }
 ```
 
-### **🔹 Get Top 3 Most-Purchased Items**
+### **Get Top 3 Most-Purchased Items**
 
 ```http
 GET /api/transactions/top-products
